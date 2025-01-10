@@ -271,7 +271,9 @@ class TestWordErrorRate:
         assert hyp.length == 3
 
     def get_wer_ctc(self, prediction: str, reference: str, test_wer_bpe: bool):
-        ctc_decoder_predictions_tensor_mock = Mock(return_value=[Hypothesis(score=1., y_sequence=[], text=prediction)])
+        ctc_decoder_predictions_tensor_mock = Mock(
+            return_value=[Hypothesis(score=1.0, y_sequence=[], text=prediction)]
+        )
         if test_wer_bpe:
             decoding = Mock(
                 blank_id=self.char_tokenizer.tokenizer.vocab_size,
@@ -307,7 +309,9 @@ class TestWordErrorRate:
         return ''.join([self.vocabulary[id_] for id_ in ids])
 
     def get_wer_rnnt(self, prediction: str, reference: str, batch_dim_index: int, test_wer_bpe: bool):
-        rnnt_decoder_predictions_tensor_mock = Mock(return_value=[Hypothesis(score=1., y_sequence=[], text=prediction)])
+        rnnt_decoder_predictions_tensor_mock = Mock(
+            return_value=[Hypothesis(score=1.0, y_sequence=[], text=prediction)]
+        )
         if test_wer_bpe:
             decoding = Mock(
                 blank_id=self.char_tokenizer.tokenizer.vocab_size,
